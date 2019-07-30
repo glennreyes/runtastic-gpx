@@ -2,7 +2,7 @@
   "name": "runtastic-gpx",
   "description": "Convert Runtastic JSON exports to GPX",
   "repository": "https://github.com/glennreyes/runtastic-gpx",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Glenn Reyes <glenn@glennreyes.com>",
   "license": "MIT",
   "main": "index.js",
