@@ -2,6 +2,13 @@
 
 💪 Converts runtastic exports to gpx
 
+## Instructions
+
+1. Export entire account data and unzip:
+   https://help.runtastic.com/hc/en-us/articles/360000953365-Export-Account-Data
+
+2. Follow usage below
+
 ## Usage
 
 ```sh
