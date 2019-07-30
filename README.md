@@ -2,6 +2,10 @@
 
 💪 Converts runtastic exports to gpx
 
+## Prerequisites
+
+[Latest node and npm](https://nodejs.org)
+
 ## Instructions
 
 1. Export entire account data and unzip:
