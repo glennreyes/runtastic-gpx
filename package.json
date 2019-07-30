@@ -1,0 +1,29 @@
+{
+  "name": "runtastic-gpx",
+  "description": "Convert Runtastic JSON exports to GPX",
+  "repository": "https://github.com/glennreyes/runtastic-gpx",
+  "version": "0.0.0",
+  "author": "Glenn Reyes <glenn@glennreyes.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "runtastic-gpx": "./cli.js"
+  },
+  "files": [
+    "cli.js",
+    "index.js"
+  ],
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "devDependencies": {
+    "nodemon": "1.19.1",
+    "prettier": "1.18.2",
+    "pretty-quick": "1.11.1"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "meow": "^5.0.0",
+    "ora": "^3.4.0"
+  }
+}
