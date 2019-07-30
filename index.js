@@ -160,10 +160,7 @@ const template = (data, name) => {
 
 let amountExportedFiles = 0;
 
-const start = async (
-  [exportPath, outputPath = `${process.cwd()}/GPX-Export`],
-  flags,
-) => {
+const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
   const exportSession = async (data, type) => {
     const name = type
       .replace('indoor_', '')
@@ -171,11 +168,11 @@ const start = async (
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
-    const dataSpinner = ora(
-      `${chalk.blue(
-        `${name}${type.startsWith('indoor') ? ' (Indoor)' : ''}`,
-      )}: Load GPS and heart rate data`,
-    ).start();
+    const prefix = chalk.gray(
+      `${type.startsWith('indoor') ? 'Indoor ' : ''}${name} `,
+    );
+
+    const dataSpinner = ora(`${prefix}Load GPS and heart rate data`).start();
     const sessions = await Promise.all(
       data
         .filter(item => SPORT_TYPES[type] === item.sport_type_id)
@@ -207,11 +204,7 @@ const start = async (
     );
     dataSpinner.succeed();
 
-    const exportSpinner = ora(
-      `${chalk.blue(
-        `${name}${type.startsWith('indoor') ? '(Indoor)' : ''}`,
-      )}: Export GPX files`,
-    ).start();
+    const exportSpinner = ora(`${prefix}Export GPX files`).start();
 
     let amountExportedSegmentFiles = 0;
 
@@ -259,10 +252,13 @@ const start = async (
     await exportSession(data, 'walk');
 
     console.log(
-      `Successfully ${chalk.green(amountExportedFiles)} files exported 💃`,
+      `\n${chalk.green(
+        amountExportedFiles,
+      )} activities successfully exported to ${chalk.yellow(outputPath)}. 💃`,
     );
   };
 
+  const filesSpinner = ora(`Load all activities`).start();
   const files = await util
     .promisify(fs.readdir)(`${exportPath}/Sport-sessions`)
     .catch(console.error);
@@ -281,6 +277,7 @@ const start = async (
 
   const compact = content.filter(Boolean);
   const data = filterContent(compact);
+  filesSpinner.succeed();
 
   await exportAllSessions(data);
 };
