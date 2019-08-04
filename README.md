@@ -28,6 +28,7 @@ $ npx runtastic-gpx ~/Desktop/export-20190101-000 ~/Downloads/export
 ## Supported types
 
 - Ride
+- Road Bike
 - Run
 - Indoor Ride
 - Indoor Run
