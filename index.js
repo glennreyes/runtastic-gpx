@@ -11,6 +11,7 @@ const SPORT_TYPES = {
   indoor_ride: '15',
   indoor_run: '14',
   ride: '3',
+  roadbike: '22',
   run: '1',
   walk: '19',
   weight_training: '34',
@@ -244,6 +245,7 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
   const exportAllSessions = async data => {
     await exportSession(data, 'ride');
     await exportSession(data, 'run');
+    await exportSession(data, 'roadbike');
     await exportSession(data, 'indoor_ride');
     await exportSession(data, 'indoor_run');
     await exportSession(data, 'elliptical');
