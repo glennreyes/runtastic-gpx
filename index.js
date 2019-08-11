@@ -15,6 +15,16 @@ const SPORT_TYPES = {
   run: '1',
   walk: '19',
   weight_training: '34',
+  swim: '18',
+  //there is no pilates,tennis, mountain_bike
+  pilates: '31',
+  //no tennis either (23)
+  tennis: '31',
+  mountain_bike: '4',
+  other: '5',
+  hike: '7',
+  cycling_ergometer: '15',
+  inline_skating: '6',  
 };
 
 const parse = buffer => {
@@ -252,6 +262,14 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
     await exportSession(data, 'weight_training');
     await exportSession(data, 'crossfit');
     await exportSession(data, 'walk');
+    await exportSession(data, 'swim');
+    await exportSession(data, 'pilates');
+    await exportSession(data, 'tennis');
+    await exportSession(data, 'mountain_bike');
+    await exportSession(data, 'other');
+    await exportSession(data, 'hike');
+    await exportSession(data, 'cycling_ergometer');
+    await exportSession(data, 'inline_skating');    
 
     console.log(
       `\n${chalk.green(
