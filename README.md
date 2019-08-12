@@ -2,6 +2,12 @@
 
 💪 Converts runtastic exports to gpx
 
+## Web converter
+
+https://runalyze.com/runtastic-converter
+
+Thanks to the folks at [Runalyze](https://runalyze.com)!
+
 ## Prerequisites
 
 [Latest node and npm](https://nodejs.org)
