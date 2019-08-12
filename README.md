@@ -43,6 +43,10 @@ $ npx runtastic-gpx ~/Desktop/export-20190101-000 ~/Downloads/export
 - Crossfit
 - Walk
 
+## Did it work well for you?
+
+I made this tool in my free time. If you liked it, please consider [buying me a coffee](https://buymeacoff.ee/glennreyes) or [donate via Paypal](https://paypal.me/glnnrys).
+
 ## License
 
 MIT
