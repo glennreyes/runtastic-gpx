@@ -2,12 +2,6 @@
 
 💪 Converts runtastic exports to gpx
 
-## Web converter
-
-https://runalyze.com/runtastic-converter
-
-Thanks to the folks at [Runalyze](https://runalyze.com)!
-
 ## Prerequisites
 
 [Latest node and npm](https://nodejs.org)
@@ -19,7 +13,13 @@ Thanks to the folks at [Runalyze](https://runalyze.com)!
 
 2. Follow usage below
 
-## Usage
+## Use the web version
+
+https://runalyze.com/runtastic-converter
+
+Thanks to the folks at [Runalyze](https://runalyze.com)!
+
+## Use the CLI version
 
 ```sh
 $ npx runtastic-gpx <json-export> <output>
