@@ -295,7 +295,7 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
   const exportAllSessions = async data => {
     await exportSession(data, 'run');
     await exportSession(data, 'nordic_walking');
-    await exportSession(data, 'cycling');
+    await exportSession(data, 'ride');
     await exportSession(data, 'mountain_biking');
     await exportSession(data, 'other');
     await exportSession(data, 'skating');
