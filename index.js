@@ -7,7 +7,7 @@ const FILES_PER_SEGMENT = 25;
 const SPORT_TYPES = {
   run: '1',
   nordic_walking: '2',
-  cycling: '3',
+  ride: '3',
   mountain_biking: '4',
   other: '5',
   skating: '6',
@@ -264,7 +264,7 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
         .filter(
           session =>
             !(
-              ((type === 'cycling' || type === 'run') &&
+              ((type === 'ride' || type === 'run') &&
                 session.gps.length === 0) ||
               ((type === 'indoor_ride' || type === 'indoor_run') &&
                 session.heart_rate.length === 0)
