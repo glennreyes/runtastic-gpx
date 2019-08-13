@@ -37,7 +37,7 @@ const SPORT_TYPES = {
   weight_training: '34',
   volleyball: '35',
   handbike: '36',
-  cross_Skating: '37',
+  cross_skating: '37',
   soccer: '38',
   smovey_walking: '39',
   nordic_cross_skating: '41',
@@ -325,7 +325,7 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
     await exportSession(data, 'weight_training');
     await exportSession(data, 'volleyball');
     await exportSession(data, 'handbike');
-    await exportSession(data, 'cross_Skating');
+    await exportSession(data, 'cross_skating');
     await exportSession(data, 'soccer');
     await exportSession(data, 'smovey_walking');
     await exportSession(data, 'nordic_cross_skating');
