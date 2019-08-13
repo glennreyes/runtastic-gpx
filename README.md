@@ -33,15 +33,63 @@ $ npx runtastic-gpx ~/Desktop/export-20190101-000 ~/Downloads/export
 
 ## Supported types
 
-- Ride
-- Road Bike
 - Run
-- Indoor Ride
+- Nordic Walking
+- Cycling
+- Mountain Biking
+- Other
+- Skating
+- Hiking
+- Cross Country Skiing
+- Skiing
+- Snow Boarding
+- Motorbiking
+- Driving
+- Snowshoeing
 - Indoor Run
+- Indoor Ride
 - Elliptical
-- Weight Training
-- Crossfit
+- Rowing
+- Swimming
 - Walk
+- Riding
+- Golfing
+- Race Cycling
+- Tennis
+- Badminton
+- Sailing
+- Windsurfing
+- Pilates
+- Climbing
+- Frisbee
+- Weight Training
+- Volleyball
+- Handbike
+- Cross Skating
+- Soccer
+- Smovey Walking
+- Nordic Cross Skating
+- Surfing
+- Kite Surfing
+- Kayaking
+- Paragliding
+- Wake Boarding
+- Freecrossen
+- Back Country Skiing
+- Ice Skating
+- Sledding
+- Snowman Building
+- Snowball Fight
+- Curling
+- Ice Stock
+- Biathlon
+- Kite Skiing
+- Speed Skiing
+- Crossfit
+- Ice Hockey
+- Skateboarding
+- Rugby
+- Standup Paddling
 
 ## Did it work well for you?
 

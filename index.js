@@ -5,16 +5,66 @@ const util = require('util');
 
 const FILES_PER_SEGMENT = 25;
 const SPORT_TYPES = {
-  basketball: '45', // Unsupported
-  crossfit: '69',
-  elliptical: '16',
-  indoor_ride: '15',
-  indoor_run: '14',
-  ride: '3',
-  roadbike: '22',
   run: '1',
+  nordic_walking: '2',
+  ride: '3',
+  mountain_biking: '4',
+  other: '5',
+  skating: '6',
+  hiking: '7',
+  cross_country_skiing: '8',
+  skiing: '9',
+  snow_boarding: '10',
+  motorbiking: '11',
+  driving: '12',
+  snowshoeing: '13',
+  indoor_run: '14',
+  indoor_ride: '15',
+  elliptical: '16',
+  rowing: '17',
+  swimming: '18',
   walk: '19',
+  riding: '20',
+  golfing: '21',
+  race_cycling: '22',
+  tennis: '23',
+  badminton: '24',
+  sailing: '29',
+  windsurfing: '30',
+  pilates: '31',
+  climbing: '32',
+  frisbee: '33',
   weight_training: '34',
+  volleyball: '35',
+  handbike: '36',
+  cross_skating: '37',
+  soccer: '38',
+  smovey_walking: '39',
+  nordic_cross_skating: '41',
+  surfing: '42',
+  kite_surfing: '43',
+  kayaking: '44',
+  basketball: '45',
+  paragliding: '47',
+  wake_boarding: '48',
+  freecrossen: '49',
+  diving: '50',
+  back_country_skiing: '53',
+  ice_skating: '54',
+  sledding: '55',
+  snowman_building: '56',
+  snowball_fight: '57',
+  curling: '58',
+  ice_stock: '59',
+  biathlon: '60',
+  kite_skiing: '61',
+  speed_skiing: '62',
+  baseball: '68',
+  crossfit: '69',
+  ice_hockey: '71',
+  skateboarding: '72',
+  rugby: '75',
+  standup_paddling: '76',
 };
 
 const parse = buffer => {
@@ -243,15 +293,63 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
   };
 
   const exportAllSessions = async data => {
-    await exportSession(data, 'ride');
     await exportSession(data, 'run');
-    await exportSession(data, 'roadbike');
-    await exportSession(data, 'indoor_ride');
+    await exportSession(data, 'nordic_walking');
+    await exportSession(data, 'ride');
+    await exportSession(data, 'mountain_biking');
+    await exportSession(data, 'other');
+    await exportSession(data, 'skating');
+    await exportSession(data, 'hiking');
+    await exportSession(data, 'cross_country_skiing');
+    await exportSession(data, 'skiing');
+    await exportSession(data, 'snow_boarding');
+    await exportSession(data, 'motorbiking');
+    await exportSession(data, 'driving');
+    await exportSession(data, 'snowshoeing');
     await exportSession(data, 'indoor_run');
+    await exportSession(data, 'indoor_ride');
     await exportSession(data, 'elliptical');
-    await exportSession(data, 'weight_training');
-    await exportSession(data, 'crossfit');
+    await exportSession(data, 'rowing');
+    await exportSession(data, 'swimming');
     await exportSession(data, 'walk');
+    await exportSession(data, 'riding');
+    await exportSession(data, 'golfing');
+    await exportSession(data, 'race_cycling');
+    await exportSession(data, 'tennis');
+    await exportSession(data, 'badminton');
+    await exportSession(data, 'sailing');
+    await exportSession(data, 'windsurfing');
+    await exportSession(data, 'pilates');
+    await exportSession(data, 'climbing');
+    await exportSession(data, 'frisbee');
+    await exportSession(data, 'weight_training');
+    await exportSession(data, 'volleyball');
+    await exportSession(data, 'handbike');
+    await exportSession(data, 'cross_skating');
+    await exportSession(data, 'soccer');
+    await exportSession(data, 'smovey_walking');
+    await exportSession(data, 'nordic_cross_skating');
+    await exportSession(data, 'surfing');
+    await exportSession(data, 'kite_surfing');
+    await exportSession(data, 'kayaking');
+    await exportSession(data, 'paragliding');
+    await exportSession(data, 'wake_boarding');
+    await exportSession(data, 'freecrossen');
+    await exportSession(data, 'back_country_skiing');
+    await exportSession(data, 'ice_skating');
+    await exportSession(data, 'sledding');
+    await exportSession(data, 'snowman_building');
+    await exportSession(data, 'snowball_fight');
+    await exportSession(data, 'curling');
+    await exportSession(data, 'ice_stock');
+    await exportSession(data, 'biathlon');
+    await exportSession(data, 'kite_skiing');
+    await exportSession(data, 'speed_skiing');
+    await exportSession(data, 'crossfit');
+    await exportSession(data, 'ice_hockey');
+    await exportSession(data, 'skateboarding');
+    await exportSession(data, 'rugby');
+    await exportSession(data, 'standup_paddling');
 
     console.log(
       `\n${chalk.green(
