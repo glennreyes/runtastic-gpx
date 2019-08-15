@@ -209,6 +209,25 @@ const template = (data, name) => {
 `.trim();
 };
 
+const fileName = (data, name) => {
+  const createdDate = new Date(data.created_at);
+  const month = createdDate.getMonth() + 1;
+  const day = createdDate.getDate();
+
+  const datePart = [
+      createdDate.getFullYear(),
+      (month > 9 ? '' : '0') + month,
+      (day > 9 ? '' : '0') + day
+  ].join('');
+
+  const timePart = [
+     (createdDate.getHours() > 9 ? '' : '0') + createdDate.getHours(),
+     (createdDate.getMinutes() > 9 ? '' : '0') + createdDate.getMinutes(),
+  ].join('');
+
+  return [datePart, timePart, name].join('_');
+};
+
 let amountExportedFiles = 0;
 
 const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
@@ -283,7 +302,7 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
 
           return util
             .promisify(fs.writeFile)(
-              `${segmentPath}/${session.id}.gpx`,
+              `${segmentPath}/${fileName(session, name)}.gpx`,
               template(session, name),
             )
             .catch(console.error);
