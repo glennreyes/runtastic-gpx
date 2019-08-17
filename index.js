@@ -214,15 +214,16 @@ const fileName = (data, name) => {
   const month = createdDate.getMonth() + 1;
   const day = createdDate.getDate();
 
+  function pad(n){return n<10 ? '0'+n : n}
   const datePart = [
       createdDate.getFullYear(),
-      (month > 9 ? '' : '0') + month,
-      (day > 9 ? '' : '0') + day
+      pad(month),
+      pad(day)
   ].join('');
 
   const timePart = [
-     (createdDate.getHours() > 9 ? '' : '0') + createdDate.getHours(),
-     (createdDate.getMinutes() > 9 ? '' : '0') + createdDate.getMinutes(),
+     pad(createdDate.getHours()),
+     pad(createdDate.getMinutes()),
   ].join('');
 
   return [datePart, timePart, name].join('_');
