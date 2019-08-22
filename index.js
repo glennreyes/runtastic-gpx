@@ -113,7 +113,7 @@ const createFolder = path =>
     })
     .catch(console.error);
 
-const template = (data, name) => {
+const gpxTemplate = (data, name) => {
   const hourStarted = new Date(data.start_time).getHours();
   const dayTime =
     hourStarted >= 0 && hourStarted < 4
@@ -209,6 +209,94 @@ const template = (data, name) => {
 `.trim();
 };
 
+const tcxTemplate = (data, name) => {
+  const hourStarted = new Date(data.start_time).getHours();
+  const dayTime =
+    hourStarted >= 0 && hourStarted < 4
+      ? 'Night'
+      : hourStarted < 11
+      ? 'Morning'
+      : hourStarted < 4
+      ? 'Lunch'
+      : hourStarted < 18
+      ? 'Afternoon'
+      : hourStarted < 22
+      ? 'Evening'
+      : 'Night';
+  const type = name === 'Run' ? 9 : name === 'Ride' ? 1 : '';
+  return `
+<?xml version="1.0" encoding="UTF-8"?>
+<TrainingCenterDatabase xsi:schemaLocation="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2 http://www.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd" xmlns:ns5="http://www.garmin.com/xmlschemas/ActivityGoals/v1" xmlns:ns3="http://www.garmin.com/xmlschemas/ActivityExtension/v2" xmlns:ns2="http://www.garmin.com/xmlschemas/UserProfile/v2" xmlns="http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Activities>
+ <Activity Sport="${name}">
+  <Id>${new Date(data.created_at).toISOString()}</Id>
+  <Lap StartTime="${new Date(data.created_at).toISOString()}">
+    <name>${dayTime} ${name}</name>
+    <Track>
+      ${
+        Array.isArray(data.gps) && data.gps.length > 0
+          ? `
+      ${data.gps
+        .map(gpsItem => {
+          const heartRate =
+            data.heart_rate &&
+            Array.isArray(data.heart_rate) &&
+            data.heart_rate.some(matchGpsWithHeartRate(gpsItem))
+              ? data.heart_rate.find(matchGpsWithHeartRate(gpsItem)).heart_rate
+              : ''
+              ? data.heart_rate.find(
+                  hr =>
+                    new Date(hr.timestamp).getTime() ===
+                    nearestDate(
+                      data.heart_rate.map(h => h.timestamp),
+                      gpsItem.timestamp,
+                    ),
+                ).heart_rate
+              : null;
+
+          return `
+      <Trackpoint>
+        <Time>${new Date(gpsItem.timestamp).toISOString()}</Time>
+        <Position>
+          <LatitudeDegrees>${gpsItem.latitude}</LatitudeDegrees>
+          <LongitudeDegrees>${gpsItem.longitude}</LongitudeDegrees>
+        </Position>
+        <DistanceMeters>${gpsItem.distance}</DistanceMeters>
+        <AltitudeMeters>${gpsItem.altitude}</AltitudeMeters>
+        ${
+            heartRate
+              ? `
+        <HeartRateBpm><Value>${heartRate}</Value></HeartRateBpm>
+        `.trim()
+              : ''
+          }
+      </Trackpoint>`;
+        })
+        .join('')
+        .trim()}`.trim()
+          : data.heart_rate &&
+            Array.isArray(data.heart_rate) &&
+            data.heart_rate.length > 0
+          ? data.heart_rate
+              .map(
+                heartRate => `
+        <Trackpoint>
+          <Time>${new Date(heartRate.timestamp).toISOString()}</Time>
+          <HeartRateBpm><Value>${heartRate.heart_rate}</Value></HeartRateBpm>
+        </Trackpoint>`,
+              )
+              .join('')
+              .trim()
+          : ''
+      }
+  </Track>
+  </Lap>
+  </Activity>
+  </Activities>
+</TrainingCenterDatabase>
+`.trim();
+};
+
 const fileName = (data, name) => {
   const createdDate = new Date(data.created_at);
   const month = createdDate.getMonth() + 1;
@@ -231,7 +319,8 @@ const fileName = (data, name) => {
 
 let amountExportedFiles = 0;
 
-const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
+const start = async ([exportPath, outputPath = `${process.cwd()}/export`], flags ) => {
+console.log(flags['tcx']);
   const exportSession = async (data, type) => {
     const name = type
       .replace('indoor_', '')
@@ -275,7 +364,7 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
     );
     dataSpinner.succeed();
 
-    const exportSpinner = ora(`${prefix}Export GPX files`).start();
+    const exportSpinner = ora(`${prefix}Export GPX/TCX files`).start();
 
     let amountExportedSegmentFiles = 0;
 
@@ -300,13 +389,22 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
           if (!fs.existsSync(segmentPath)) {
             await createFolder(segmentPath);
           }
-
-          return util
+          if (typeof flags['tcx'] === 'boolean' && flags['tcx'] === true ) {
+           util
             .promisify(fs.writeFile)(
-              `${segmentPath}/${fileName(session, name)}.gpx`,
-              template(session, name),
+              `${segmentPath}/${fileName(session, name)}.tcx`,
+              tcxTemplate(session, name),
             )
             .catch(console.error);
+          }
+          if (typeof flags['gpx'] === 'boolean' && flags['gpx'] === true ) {
+            util
+             .promisify(fs.writeFile)(
+               `${segmentPath}/${fileName(session, name)}.gpx`,
+               gpxTemplate(session, name),
+             )
+             .catch(console.error);
+           }
         }),
     );
     exportSpinner.succeed();
