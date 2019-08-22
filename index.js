@@ -3,7 +3,6 @@ const fs = require('fs');
 const ora = require('ora');
 const util = require('util');
 
-const FILES_PER_SEGMENT = 25;
 const SPORT_TYPES = {
   run: '1',
   nordic_walking: '2',
@@ -277,8 +276,6 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
 
     const exportSpinner = ora(`${prefix}Export GPX files`).start();
 
-    let amountExportedSegmentFiles = 0;
-
     await Promise.all(
       sessions
         .filter(
@@ -292,18 +289,16 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
         )
         .map(async session => {
           amountExportedFiles++;
-          amountExportedSegmentFiles++;
-          const segment =
-            Math.round(amountExportedFiles / FILES_PER_SEGMENT) + 1;
-          const segmentPath = `${outputPath}/${type}/${segment}`;
 
-          if (!fs.existsSync(segmentPath)) {
-            await createFolder(segmentPath);
+          const Path = `${outputPath}/${type}`;
+
+          if (!fs.existsSync(Path)) {
+            await createFolder(Path);
           }
 
           return util
             .promisify(fs.writeFile)(
-              `${segmentPath}/${fileName(session, name)}.gpx`,
+              `${Path}/${fileName(session, name)}.gpx`,
               template(session, name),
             )
             .catch(console.error);
