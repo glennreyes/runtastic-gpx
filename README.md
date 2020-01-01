@@ -1,6 +1,10 @@
-# runtastic-gpx
+# runtastic-gpx (abdoned)
 
 💪 Converts runtastic exports to gpx
+
+Runtastic finally listened to the users and provided GPX files including heart rate and altitude data in the official data backup.
+
+Therefore this tool is no longer needed. Many thanks to all who have contributed here!
 
 Check out the list of [supported types](#supported-types)
 
@@ -15,7 +19,7 @@ Check out the list of [supported types](#supported-types)
 
 2. Follow usage below
 
-## Use the web version
+## Use the web version (discontinued)
 
 https://runalyze.com/runtastic-converter
 
