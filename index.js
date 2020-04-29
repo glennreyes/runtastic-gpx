@@ -137,11 +137,15 @@ const template = (data, name) => {
     <time>${new Date(data.created_at).toISOString()}</time>
   </metadata>
   <trk>
-    <name>${dayTime} ${name}</name>${
+    <name>${data.notes ? data.notes : `${dayTime} ${name}`}</name>${
+    data.description
+      ? `
+    <desc>${data.description}</desc>`
+      : ''
+    }${
     type
       ? `
-    <type>${type}</type>
-    `.trim()
+    <type>${type}</type>`
       : ''
   }
     <trkseg>
@@ -168,8 +172,12 @@ const template = (data, name) => {
 
           return `
       <trkpt lon="${gpsItem.longitude}" lat="${gpsItem.latitude}">
-        <ele>${gpsItem.altitude}</ele>
-        <time>${new Date(gpsItem.timestamp).toISOString()}</time>${
+        <ele>${gpsItem.altitude}</ele>${
+          gpsItem.timestamp
+            ? `
+        <time>${new Date(gpsItem.timestamp).toISOString()}</time>`
+          : ''
+          }${
             heartRate
               ? `
         <extensions>
@@ -209,7 +217,7 @@ const template = (data, name) => {
 };
 
 const fileName = (data, name) => {
-  const createdDate = new Date(data.created_at);
+  const createdDate = new Date(data.start_time);
   const month = createdDate.getMonth() + 1;
   const day = createdDate.getDate();
 
@@ -257,6 +265,31 @@ const start = async ([exportPath, outputPath = `${process.cwd()}/export`]) => {
             gpsFile = await util
               .promisify(fs.readFile)(gpsPath)
               .catch(console.error);
+          }
+          else if(item.route_id) { // if session has no GPS, check if it is attached to a route which has GPS
+            const routePath = `${exportPath}/Routes/${item.route_id}.json`;
+            const routeGpsPath = `${exportPath}/Routes/GPS-data/${item.route_id}.json`;
+
+            // get route name and description to add to session description
+            if (fs.existsSync(routePath)) {
+              routeFile = await util
+                .promisify(fs.readFile)(routePath)
+                .catch(console.error);
+              if (routeFile) {
+                route = parse(routeFile);
+                item.description = `No GPS data. Route: ${route.name} / ${route.description.replace(/\r\n/g, ' - ')}`;
+              }
+            }
+
+            // get route GPS and add start/end timestamps
+            if (fs.existsSync(routeGpsPath)) {
+              gpsFile = await util
+                .promisify(fs.readFile)(routeGpsPath)
+                .catch(console.error);
+              gpsFile = gpsFile.toString('utf8'); // convert to string to add start and end timestamps
+              gpsFile = gpsFile.replace('[{', `[{"timestamp":"${new Date(item.start_time).toISOString()}",`);
+              gpsFile = gpsFile.replace('}]', `,"timestamp":"${new Date(item.end_time).toISOString()}"}]`);
+            }
           }
 
           if (fs.existsSync(heartRatePath)) {
