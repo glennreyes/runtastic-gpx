@@ -1,10 +1,16 @@
-# runtastic-gpx (abdoned)
-
-💪 Converts runtastic exports to gpx
+# NOTE: This project is no longer maintained!
 
 Runtastic finally listened to the users and provided GPX files including heart rate and altitude data in the official data backup.
 
 Therefore this tool is no longer needed. Many thanks to all who have contributed here!
+
+Read more about it here:
+
+https://help.runtastic.com/hc/en-us/articles/360000953365-Export-Account-Data
+
+# runtastic-gpx
+
+💪 Converts runtastic exports to gpx
 
 Check out the list of [supported types](#supported-types)
 
@@ -18,12 +24,6 @@ Check out the list of [supported types](#supported-types)
    https://help.runtastic.com/hc/en-us/articles/360000953365-Export-Account-Data
 
 2. Follow usage below
-
-## Use the web version (discontinued)
-
-https://runalyze.com/runtastic-converter
-
-Thanks to the folks at [Runalyze](https://runalyze.com)!
 
 ## Use the CLI version
 
