@@ -22,7 +22,7 @@
     "pretty-quick": "1.11.1"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "meow": "^5.0.0",
     "ora": "^3.4.0"
   }
