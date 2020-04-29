@@ -6,7 +6,7 @@ const exportGpx = require('./index');
 
 const cli = meow(`
 	Usage
-    $ runtastic-gpx <json-export> <output>
+    $ runtastic-gpx <json-export> <output> --tcx --gpx
 
 	Examples
 	  $ runtastic-gpx ~/Desktop/export-20190101-000 ~/Downloads/export
